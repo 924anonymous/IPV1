@@ -1,0 +1,6 @@
+DATABASE_NAME,SCHEMA_NAME,TABLE_NAME,VALUE,COLUMN_NAME,OPERATOR
+porter_order_production,public,cancel_reasons,22-01-2017 51:32.0,updated_at,>
+porter_order_production,public,discount_system_tickets,22-01-2017 51:32.0,updated_at,>
+porter_order_production,public,driver_compatibility_reasons,22-01-2017 51:32.0,updated_at,>
+porter_order_production,public,driver_contract_versions,22-01-2017 51:32.0,updated_at,>
+porter_order_production,agg,intermediate_completed_orders_data,22-01-2017 51:32.0,updated_at,>

@@ -1,0 +1,6 @@
+DATABASE_NAME,SCHEMA_NAME,TABLE_NAME,SF_EXT_STAGE,FILE_PREFIX_PATH,LOAD_TYPE,TRUNCATE_LOAD,PURGE_FILES,ACTION_ON_ERROR
+DEV_RAW,OMS_PUBLIC,drivers,COM.ext_porter_poc_stage,data/curated/postgres/porter_order_production/public/drivers/,custom_cols,yes,yes,continue
+DEV_RAW,OMS_PUBLIC,discount_system_tickets,COM.ext_porter_poc_stage,data/curated/postgres/porter_order_production/public/discount_system_tickets/,custom_cols,yes,yes,continue
+DEV_RAW,OMS_PUBLIC,driver_compatibility_reasons,COM.ext_porter_poc_stage,data/curated/postgres/porter_order_production/public/driver_compatibility_reasons/,custom_cols,yes,yes,continue
+DEV_RAW,OMS_PUBLIC,driver_contract_versions,COM.ext_porter_poc_stage,data/curated/postgres/porter_order_production/public/discount_system_tickets/,custom_cols,yes,yes,continue
+DEV_RAW,OMS_AGG,intermediate_completed_orders_data,COM.ext_porter_poc_stage,data/curated/postgres/porter_order_production/agg/intermediate_completed_orders_data/,custom_cols,yes,yes,continue
