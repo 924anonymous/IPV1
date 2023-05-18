@@ -22,12 +22,12 @@ def dashboard_app():
 
                 fig_bar_copper_mine = px.bar(copper_df, y=copper_df['mining_data_Value'],
                                              x=copper_df['mining_data_Date'],
-                                             title='Production of copper, mine',
-                                             labels={'mining_data_Value': 'Value', 'mining_data_Date': 'Date'})
+                                             title='Production of copper, Refined',
+                                             labels={'mining_data_Value': 'Production Value (tonnes (metric))', 'mining_data_Date': 'Date'})
                 fig_line_copper_mine = px.line(copper_df, y=copper_df["mining_data_Value"],
                                                x=copper_df["mining_data_Date"],
-                                               title='Production of copper, mine',
-                                               labels={'mining_data_Value': 'Value', 'mining_data_Date': 'Date'},
+                                               title='Production of copper, Refined',
+                                               labels={'mining_data_Value': 'Production Value (tonnes (metric))', 'mining_data_Date': 'Date'},
                                                markers=True)
 
                 zinc_df = df[['mining_data_Date', 'mining_data_Value', 'mining_data_Indicator Unit']][
@@ -37,10 +37,10 @@ def dashboard_app():
 
                 fig_bar_zinc_mine = px.bar(zinc_df, y=zinc_df['mining_data_Value'], x=zinc_df['mining_data_Date'],
                                            title='Production of zinc, mine',
-                                           labels={'mining_data_Value': 'Value', 'mining_data_Date': 'Date'})
+                                           labels={'mining_data_Value': 'Production Value (tonnes (metal content))', 'mining_data_Date': 'Date'})
                 fig_line_zinc_mine = px.line(zinc_df, y=zinc_df["mining_data_Value"], x=zinc_df["mining_data_Date"],
                                              title='Production of zinc, mine',
-                                             labels={'mining_data_Value': 'Value', 'mining_data_Date': 'Date'},
+                                             labels={'mining_data_Value': 'Production Value (tonnes (metal content))', 'mining_data_Date': 'Date'},
                                              markers=True)
 
                 fig_bar_zinc_mine.update_layout(Utility.layout)
