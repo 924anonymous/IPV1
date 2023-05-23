@@ -92,12 +92,12 @@ def singleQueryGenerator(option):
             left_col, right_col = st.columns(2)
             with left_col:
                 db_name = st.text_input('Source Database Name')
-                schema_name = st.text_input('Source Schema Name')
                 table_name = st.text_input('Source Table Name')
-            with right_col:
-                value = st.text_input('Timestamp Value')
                 column_name = st.text_input('Column Name')
+            with right_col:
+                schema_name = st.text_input('Source Schema Name')
                 operator = st.text_input('Operator ("<" or ">" or "=")')
+                value = st.text_input('Column Value')
 
             inc_query = queries.incremental_config_details_query.format(db_name=db_name,
                                                                         schema_name=schema_name,
