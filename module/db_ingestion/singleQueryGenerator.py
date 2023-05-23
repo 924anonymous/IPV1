@@ -1,11 +1,11 @@
 import module.db_ingestion.insert_queries as queries
 from module.common_functions import insertData
+import streamlit as st
+from module.common_functions import getData
 
 
 def singleQueryGenerator(option):
     if option.lower() == 'db_ingestion_config_details':
-        import streamlit as st
-        from module.common_functions import getData
 
         # DATABASE_NAME,SCHEMA_NAME,TABLE_NAME,COLUMNS_TO_SELECT,SRC_PATH,RAW_BUCKET_NAME,
         # RAW_TGT_PATH,CURATED_BUCKET_NAME,CURATED_TGT_PATH,MODE,LIMITDATACHECK,INCR_COLUMN_NAME,
@@ -87,3 +87,25 @@ def singleQueryGenerator(option):
             submitted = st.form_submit_button("Insert Data Into DB", type='primary')
             if submitted:
                 insertData(query)
+    elif option.lower() == "incremental_config_details":
+        with st.form("inc_dtl"):
+            left_col, right_col = st.columns(2)
+            with left_col:
+                db_name = st.text_input('Source Database Name')
+                schema_name = st.text_input('Source Schema Name')
+                table_name = st.text_input('Source Table Name')
+            with right_col:
+                value = st.text_input('Timestamp Value')
+                column_name = st.text_input('Column Name')
+                operator = st.text_input('Operator ("<" or ">" or "=")')
+
+            inc_query = queries.incremental_config_details_query.format(db_name=db_name,
+                                                                        schema_name=schema_name,
+                                                                        table_name=table_name,
+                                                                        value=value,
+                                                                        column_name=column_name,
+                                                                        operator=operator)
+
+            submitted = st.form_submit_button("Insert Data Into DB", type='primary')
+            if submitted:
+                insertData(inc_query)
