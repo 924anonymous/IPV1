@@ -211,3 +211,17 @@ STATUS) VALUES(
  '{schema_name}',
  '{table_name}',
  '{status}'); '''
+
+update_incremental_details = '''
+update config.incremental_details 
+set status='inactive' 
+where database_name = '{database_name}'
+and schema_name = '{schema_name}'
+and table_name = '{table_name}'; '''
+
+update_dbingestion_config_details = '''
+update config.dbingestion_config_details
+set status = 'inactive'
+where database_name = '{database_name}'
+and schema_name = '{schema_name}'
+and table_name = '{table_name}'; '''

@@ -67,6 +67,10 @@ def singleQueryGenerator(option):
                 data = getData(query)
                 connection_id = data[0][0]
 
+            update_query_db_ing = queries.update_dbingestion_config_details.format(database_name=db_name,
+                                                                                   schema_name=schema_name,
+                                                                                   table_name=table_name)
+
             query = queries.db_ingestion_config_details_query.format(db_name=db_name, schema_name=schema_name,
                                                                      table_name=table_name,
                                                                      columns_to_select=columns_to_select,
@@ -86,7 +90,9 @@ def singleQueryGenerator(option):
                                                                      connection_id=connection_id)
             submitted = st.form_submit_button("Insert Data Into DB", type='primary')
             if submitted:
+                insertData(update_query_db_ing)
                 insertData(query)
+
     elif option.lower() == "incremental_config_details":
         with st.form("inc_dtl"):
             left_col, right_col = st.columns(2)
@@ -99,6 +105,10 @@ def singleQueryGenerator(option):
                 operator = st.text_input('Operator ("<" or ">" or "=")')
                 value = st.text_input('Column Value')
 
+            update_query_inc_dtl = queries.update_incremental_details.format(database_name=db_name,
+                                                                             schema_name=schema_name,
+                                                                             table_name=table_name)
+
             inc_query = queries.incremental_config_details_query.format(db_name=db_name,
                                                                         schema_name=schema_name,
                                                                         table_name=table_name,
@@ -108,4 +118,5 @@ def singleQueryGenerator(option):
 
             submitted = st.form_submit_button("Insert Data Into DB", type='primary')
             if submitted:
+                insertData(update_query_inc_dtl)
                 insertData(inc_query)
