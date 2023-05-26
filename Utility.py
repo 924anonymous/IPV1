@@ -1,5 +1,6 @@
 from datetime import date, datetime
 import streamlit as st
+import json
 
 layout = {
     'plot_bgcolor': 'rgba(0,0,0,0)',
@@ -38,3 +39,12 @@ def age(born):
 def blanklines(n):
     for i in range(n):
         st.write('')
+
+
+def key_operations(data, operation, key_name, key_value):
+    data = json.loads(str(data))
+    if operation.lower() == "add":
+        data[key_name] = key_value
+    elif operation.lower() == "delete":
+        data = {key: data[key] for key in data if key not in ['updated_at', 'created_at']}
+    return json.dumps(data)
