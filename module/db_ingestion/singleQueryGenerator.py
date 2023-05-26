@@ -92,6 +92,7 @@ def singleQueryGenerator(option):
             if submitted:
                 insertData(update_query_db_ing)
                 insertData(query)
+                st.success('Data Inserted Into DB Successfully')
 
     elif option.lower() == "incremental_config_details":
         with st.form("inc_dtl"):
@@ -120,3 +121,4 @@ def singleQueryGenerator(option):
             if submitted:
                 insertData(update_query_inc_dtl)
                 insertData(inc_query)
+                st.success('Data Inserted Into DB Successfully')

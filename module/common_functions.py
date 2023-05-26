@@ -13,7 +13,6 @@ def insertData(query):
             from module.dbConnection import runInsertQuery
             # Executing an query using the execute() method
             runInsertQuery(conn, query)
-            st.success('Data Inserted Into DB Successfully')
         except Exception as e:
             print(f'Error : {e}')
         # Closing the connection
