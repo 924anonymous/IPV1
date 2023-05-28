@@ -4,6 +4,7 @@ import Utility
 import json
 import os
 import pandas as pd
+from datetime import datetime
 
 
 def dataquality_app():
@@ -61,16 +62,17 @@ def dataquality_app():
                                     axis=1)
 
                             fdf['errorneous_records'] = log_df['errorneous_records']
-                            fdf.to_parquet('rep.parquet', engine='auto', compression='snappy')
-                            with open("rep.parquet", "rb") as file:
+                            file_name = "fixed_errorneous_records_" + str(datetime.now().strftime("%d%m%Y%I%M%p"))
+                            fdf.to_parquet(file_name, engine='auto', compression='snappy')
+                            with open(file_name, "rb") as file:
                                 btn = st.download_button(
                                     label="Download Parquet File",
                                     data=file,
-                                    file_name="rep.parquet"
+                                    file_name=file_name
                                 )
                             if btn:
                                 try:
-                                    os.remove('./rep.parquet')
+                                    os.remove(f'./{file_name}')
                                 except OSError as error:
                                     pass
         except Exception as e:
