@@ -12,14 +12,7 @@ from module.api_ingesion.api_main import apiIngestion
 # """
 
 def utility_app():
-    hide_menu_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            header {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+    st.markdown("<style>footer {visibility: hidden;}</style>", unsafe_allow_html=True)
 
     with st.sidebar:
         selected = option_menu("Services", ["DB Ingestion", 'API Ingestion'],
