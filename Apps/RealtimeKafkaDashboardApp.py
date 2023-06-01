@@ -11,11 +11,11 @@ def realtime_kafka_dashboard_app():
 
     st_autorefresh(interval=1 * 60 * 1000, key="datarefresh")
 
-    @st.cache_resource
-    def init_connection():
-        return snowflake.connector.connect(**st.secrets["snowflake"])
-
     try:
+        @st.cache_resource
+        def init_connection():
+            return snowflake.connector.connect(**st.secrets["snowflake"])
+
         conn = init_connection()
         cur = conn.cursor()
 
