@@ -2,7 +2,6 @@ import streamlit as st
 import snowflake.connector
 import plotly.graph_objects as go
 import plotly.express as px
-import Utility
 from streamlit_autorefresh import st_autorefresh
 
 
@@ -33,17 +32,16 @@ def realtime_kafka_dashboard_app():
             if len(main_df) > 0:
                 total_sales = int(main_df["TOTAL"].sum())
                 average_rating = round(main_df["RATING"].mean(), 1)
+                star_rating = ":star:" * int(round(average_rating, 0))
                 average_sale_by_transaction = round(main_df["TOTAL"].mean(), 2)
 
                 left_column, middle_column, right_column = st.columns(3)
                 with left_column:
                     st.subheader("Total Sales:")
-                    Utility.blanklines(2)
                     st.subheader(f"US $ {total_sales:,}")
                 with middle_column:
                     st.subheader("Average Rating:")
-                    Utility.blanklines(2)
-                    st.subheader(f"{average_rating}")
+                    st.subheader(f"{average_rating} {star_rating}")
                 with right_column:
                     st.subheader("Average Sales Per Transaction:")
                     st.subheader(f"US $ {average_sale_by_transaction}")

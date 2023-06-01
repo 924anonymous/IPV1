@@ -2,6 +2,12 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from Apps import DashboardApp, UtilityApp, OperationsApp, DataQualityApp, RealtimeKafkaDashboardApp
 
+st.set_page_config(
+    page_title="MultiUtility Application",
+    page_icon="⚙",
+    layout="wide"
+)
+
 with st.sidebar:
     selected_option = option_menu(
         "App Gallery",
