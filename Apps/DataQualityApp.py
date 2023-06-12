@@ -40,6 +40,7 @@ def dataquality_app():
                 all_rules_df = pd.DataFrame(all_rules_dict)
                 df_applied_rule = log_df.filter(items=['column_name', 'check_name']).drop_duplicates()
                 df_applied_rule['fix_value'] = ''
+                df_applied_rule['table_name'] = 'mining_data'
 
                 with st.container():
                     left_col, right_col = st.columns(2)
@@ -47,8 +48,10 @@ def dataquality_app():
                         st.table(all_rules_df)
                     with right_col:
                         with st.form("form_fix"):
-                            le_col, mid_col, ri_col = st.columns(3)
+                            fi_col, le_col, mid_col, ri_col = st.columns(4)
                             for ind in df_applied_rule.index:
+                                with fi_col:
+                                    tbl_nm = st.text_input('Table Name', value=df_applied_rule['table_name'][ind])
                                 with le_col:
                                     col_nm = st.text_input('Column Name', value=df_applied_rule['column_name'][ind])
                                 with mid_col:
@@ -71,7 +74,8 @@ def dataquality_app():
                                 btn = st.download_button(
                                     label="Download Parquet File",
                                     data=file,
-                                    file_name='fixed_errorneous_records.parquet'
+                                    file_name='fixed_errorneous_records_' + str(
+                                        datetime.now().strftime("%d%m%Y%I%M%p")) + '.parquet'
                                 )
                             if btn:
                                 try:
