@@ -63,20 +63,21 @@ def dataquality_app():
                                                                            f_val),
                                         axis=1)
 
-                                fdf['errorneous_records'] = log_df['errorneous_records']
-                                file_name = "fixed_errorneous_records_" + str(datetime.now().strftime("%d%m%Y%I%M%p"))
+                                fdf['mining_data'] = log_df['errorneous_records']
+                                file_name = "fixed_errorneous_records.parquet"
                                 fdf.to_parquet(file_name, engine='auto', compression='snappy')
-                                with open(file_name, "rb") as file:
-                                    btn = st.download_button(
-                                        label="Download Parquet File",
-                                        data=file,
-                                        file_name=file_name
-                                    )
-                                if btn:
-                                    try:
-                                        os.remove(f'./{file_name}')
-                                    except OSError as error:
-                                        pass
+                        if os.path.exists('./fixed_errorneous_records.parquet'):
+                            with open('fixed_errorneous_records.parquet', "rb") as file:
+                                btn = st.download_button(
+                                    label="Download Parquet File",
+                                    data=file,
+                                    file_name='fixed_errorneous_records.parquet'
+                                )
+                            if btn:
+                                try:
+                                    os.remove(f'./fixed_errorneous_records.parquet')
+                                except OSError as error:
+                                    pass
             else:
                 st.error('Erroneous Records Not Found 😁')
         except Exception as e:
