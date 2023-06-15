@@ -41,10 +41,10 @@ def blanklines(n):
         st.write('')
 
 
-def key_operations(data, operation, key_name, key_value):
+def key_operations(data, operation, key_name, key_value, table_name):
     data = json.loads(str(data))
     if operation.lower() == "add":
         data[key_name] = key_value
     elif operation.lower() == "delete":
-        data = {key: data[key] for key in data if key not in ['updated_at', 'created_at']}
+        data = {key.replace(table_name + '_', ''): data[key] for key in data if key not in ['updated_at', 'created_at']}
     return json.dumps(data)

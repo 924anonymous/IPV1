@@ -25,8 +25,10 @@ def dataquality_app():
                 fdf['updated_at'] = postgres_obj.execute_query("select current_timestamp::timestamp;").iloc[0][
                     'current_timestamp']
 
+                table_name = 'mining_data'
+
                 log_df["errorneous_records"] = log_df.apply(
-                    lambda row: Utility.key_operations(row["errorneous_records"], 'delete', '', ''), axis=1)
+                    lambda row: Utility.key_operations(row["errorneous_records"], 'delete', '', '', table_name), axis=1)
 
                 hide_table_row_index = """
                                         <style>
@@ -40,7 +42,7 @@ def dataquality_app():
                 all_rules_df = pd.DataFrame(all_rules_dict)
                 df_applied_rule = log_df.filter(items=['column_name', 'check_name']).drop_duplicates()
                 df_applied_rule['fix_value'] = ''
-                df_applied_rule['table_name'] = 'mining_data'
+                df_applied_rule['table_name'] = table_name
 
                 with st.container():
                     left_col, right_col = st.columns(2)
@@ -62,8 +64,9 @@ def dataquality_app():
                             if submitted:
                                 for _ in range(len(df_applied_rule)):
                                     log_df["errorneous_records"] = log_df.apply(
-                                        lambda row: Utility.key_operations(row["errorneous_records"], 'add', col_nm,
-                                                                           f_val),
+                                        lambda row: Utility.key_operations(row["errorneous_records"], 'add',
+                                                                           col_nm.replace(table_name + '_', ''),
+                                                                           f_val, ''),
                                         axis=1)
 
                                 fdf['mining_data'] = log_df['errorneous_records']
@@ -74,13 +77,13 @@ def dataquality_app():
                                 btn = st.download_button(
                                     label="Download Parquet File",
                                     data=file,
-                                    file_name='fixed_errorneous_records_' + str(
+                                    file_name='fixed_erroneous_records_' + str(
                                         datetime.now().strftime("%d%m%Y%I%M%p")) + '.parquet'
                                 )
                             if btn:
                                 try:
                                     os.remove(f'./fixed_errorneous_records.parquet')
-                                except OSError as error:
+                                except OSError:
                                     pass
             else:
                 st.error('Erroneous Records Not Found 😁')
